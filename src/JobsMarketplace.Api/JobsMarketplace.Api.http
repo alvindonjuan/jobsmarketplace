@@ -1,0 +1,13 @@
+@JobsMarketplace.Api_HostAddress = http://localhost:5256
+
+### Create Customer
+POST {{JobsMarketplace.Api_HostAddress}}/api/customers
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe"
+}
+
+
+###

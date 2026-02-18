@@ -16,6 +16,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{D37CACD8-B065-4270-B060-6C0104530FAB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JobsMarketplace.Application.Tests", "tests\JobsMarketplace.Application.Tests\JobsMarketplace.Application.Tests.csproj", "{FA01EBF9-8C7F-AEAB-E41B-D8DC91999410}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -38,6 +42,10 @@ Global
 		{0E1C3E9C-0012-0646-8DF0-F447676A0F58}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0E1C3E9C-0012-0646-8DF0-F447676A0F58}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0E1C3E9C-0012-0646-8DF0-F447676A0F58}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA01EBF9-8C7F-AEAB-E41B-D8DC91999410}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA01EBF9-8C7F-AEAB-E41B-D8DC91999410}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA01EBF9-8C7F-AEAB-E41B-D8DC91999410}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA01EBF9-8C7F-AEAB-E41B-D8DC91999410}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -47,6 +55,7 @@ Global
 		{60A2B658-74B4-7933-E5DF-C106C6317AB6} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{997E83E3-1829-731B-E40A-39BFAA36802E} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0E1C3E9C-0012-0646-8DF0-F447676A0F58} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{FA01EBF9-8C7F-AEAB-E41B-D8DC91999410} = {D37CACD8-B065-4270-B060-6C0104530FAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A830AA8D-DCCC-45F0-914C-EF676D9EB20F}

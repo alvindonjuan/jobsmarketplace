@@ -9,7 +9,6 @@ namespace JobsMarketplace.Application.Interfaces.Queries
 
         Task<IEnumerable<JobSummaryResponse>> SearchJobsAsync(string query, DateTimeOffset? lastCreatedAt);
 
-
     }
 
 }

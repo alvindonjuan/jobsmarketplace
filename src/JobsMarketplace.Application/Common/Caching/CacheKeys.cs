@@ -12,8 +12,8 @@ namespace JobsMarketplace.Application.Common.Caching
 
         public static string Contractor(Guid id)  => $"contractor:{id}";
 
-        public static string Job(Guid id) => $"job:{id}";
+        public static string JobDetails(Guid id) => $"jobdetails:{id}";
 
-        public static string JobOffer(Guid id) => $"joboffer:{id}";
+        public static string JobOfferDetails(Guid id) => $"jobofferdetails:{id}";
     }
 }

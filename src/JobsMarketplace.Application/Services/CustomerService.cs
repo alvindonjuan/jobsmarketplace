@@ -29,7 +29,7 @@ namespace JobsMarketplace.Application.Services
             if (cached is not null)
                 return cached;
 
-            var customer = await _repository.GetByIdAsync(id);
+            var customer = await _queries.GetByIdAsync(id);
 
             if (customer is null)
                 return null;

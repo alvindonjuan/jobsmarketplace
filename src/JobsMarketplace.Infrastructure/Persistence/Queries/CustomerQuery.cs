@@ -21,6 +21,26 @@ namespace JobsMarketplace.Infrastructure.Persistence.Queries
             _factory = factory;
         }
 
+        public async Task<CustomerResponse?> GetByIdAsync(Guid id)
+        {
+            using var connection = _factory.CreateConnection();
+
+            const string sql = """
+            SELECT id,
+                first_name AS FirstName,
+                last_name AS LastName,
+                created_at AS CreatedAt
+            FROM customers
+            WHERE id = @Id
+            """;
+
+            return await connection.QueryFirstOrDefaultAsync<CustomerResponse>(
+                sql,
+                new { Id = id });
+        }
+
+
+
         public async Task<IEnumerable<CustomerResponse>> SearchCustomersAsync(string query, DateTimeOffset? lastCreatedAt)
         {
             using var connection = _factory.CreateConnection();

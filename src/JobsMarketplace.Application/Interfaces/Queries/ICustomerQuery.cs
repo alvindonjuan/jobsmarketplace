@@ -10,6 +10,8 @@ namespace JobsMarketplace.Application.Interfaces.Queries
 {
     public interface ICustomerQuery
     {
+        Task<CustomerResponse> GetByIdAsync(Guid id);
+
         Task<IEnumerable<CustomerResponse>> SearchCustomersAsync(string query, DateTimeOffset? lastCreatedAt);
     }
 }

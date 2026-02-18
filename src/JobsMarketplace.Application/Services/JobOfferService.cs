@@ -1,4 +1,5 @@
-﻿using JobsMarketplace.Application.DTOs.Job;
+﻿using JobsMarketplace.Application.Common.Caching;
+using JobsMarketplace.Application.DTOs.Job;
 using JobsMarketplace.Application.DTOs.JobOffer;
 using JobsMarketplace.Application.Interfaces.Queries;
 using JobsMarketplace.Application.Interfaces.Repositories;
@@ -12,11 +13,13 @@ namespace JobsMarketplace.Application.Services
         private readonly IJobOfferRepository _repository;
 
         private readonly IJobOfferQuery _query;
+        private readonly ICacheService _cache;
 
-        public JobOfferService(IJobOfferRepository jobOfferRepository, IJobOfferQuery query)
+        public JobOfferService(IJobOfferRepository jobOfferRepository, IJobOfferQuery query, ICacheService cache)
         {
             _repository = jobOfferRepository;
             _query = query;
+            _cache = cache;
         }
 
         public async Task<Guid> CreateAsync(CreateJobOfferRequest request)
@@ -39,25 +42,38 @@ namespace JobsMarketplace.Application.Services
 
             await _repository.UpdateAsync(jobOffer);
 
+            var cacheKey = CacheKeys.JobOfferDetails(id);
+            await _cache.RemoveAsync(cacheKey);
+
+
         }
 
         public async Task DeleteAsync(Guid id)
         {
             await _repository.DeleteAsync(id);
+            var cacheKey = CacheKeys.JobOfferDetails(id);
+            await _cache.RemoveAsync(cacheKey);
         }
 
 
         public async Task<JobOfferDetailsResponse?> GetJobOfferDetailsAsync(Guid id)
         {
+            var cacheKey = CacheKeys.JobOfferDetails(id);
+
+            var cached = await _cache.GetAsync<JobOfferDetailsResponse>(cacheKey);
+            if (cached is not null)
+                return cached;
+
+
             var jobOfferDetails = await _query.GetJobOfferDetailsAsync(id);
 
             if (jobOfferDetails is null)
                 return null;
 
-            return new JobOfferDetailsResponse
+            var response = new JobOfferDetailsResponse
             {
                 Id = jobOfferDetails.Id,
-                OfferedPrice =jobOfferDetails.OfferedPrice,
+                OfferedPrice = jobOfferDetails.OfferedPrice,
                 IsAccepted = jobOfferDetails.IsAccepted,
                 CreatedAt = jobOfferDetails.CreatedAt,
                 ContractorId = jobOfferDetails.ContractorId,
@@ -67,13 +83,18 @@ namespace JobsMarketplace.Application.Services
                 JobDescription = jobOfferDetails.JobDescription
             };
 
+            await _cache.SetAsync(cacheKey, response);
+
+            return response;
+
+
         }
 
 
 
-        public async Task AcceptJobOfferAsync(Guid offerId)
+        public async Task AcceptJobOfferAsync(Guid id)
         {
-            var jobOffer = await _repository.GetByIdAsync(offerId);
+            var jobOffer = await _repository.GetByIdAsync(id);
 
             if (jobOffer is null)
                 throw new Exception("Job offer not found");
@@ -81,6 +102,9 @@ namespace JobsMarketplace.Application.Services
             jobOffer.Accept();
 
             await _repository.UpdateAsync(jobOffer);
+
+            var cacheKey = CacheKeys.JobOfferDetails(id);
+            await _cache.RemoveAsync(cacheKey);
         }
     }
 }

@@ -1,5 +1,4 @@
-# jobsmarketplace
-Jobs Marketplace - Demo Project
+Jobs Marketplace API
 
 This project requires PostgreSQL and Redis running locally via Docker.
 
@@ -30,6 +29,8 @@ From the Solution, navigate to: db/Database Scripts
 Execute the scripts in order:
 	a. Create Schema.sql
 	b. Seed.sql
+
+Note: Seeding might take around 5-10 minutes since its inserting millions of record.
 
 4. Update Connection Strings
 

@@ -22,6 +22,25 @@ namespace JobsMarketplace.Infrastructure.Persistence.Queries
             _factory = factory;
         }
 
+        public async Task<ContractorResponse?> GetByIdAsync(Guid id)
+        {
+            using var connection = _factory.CreateConnection();
+
+            const string sql = """
+            SELECT id,
+                name AS Name,
+                rating AS Rating,
+                created_at AS CreatedAt
+            FROM contractors
+            WHERE id = @Id
+            """;
+
+            return await connection.QueryFirstOrDefaultAsync<ContractorResponse>(
+                sql,
+                new { Id = id });
+        }
+
+
         public async Task<IEnumerable<ContractorResponse>> SearchContractorsAsync(string query, DateTimeOffset? lastCreatedAt)
         {
             using var connection = _factory.CreateConnection();
